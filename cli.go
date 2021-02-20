@@ -82,7 +82,7 @@ func (c *Config) IsValid() bool {
 		}
 	}
 
-    // If they've not given a full URL, assume the standard azurecr URL
+	// If they've not given a full URL, assume the standard azurecr URL
 	if !strings.HasPrefix(c.registryName, "http") {
 		c.registryName = fmt.Sprintf("https://%s.azurecr.io:443", c.registryName)
 	}
