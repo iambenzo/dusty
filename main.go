@@ -25,6 +25,7 @@ type ChangeableAttributesStruct struct {
 	ReadEnabled   bool
 	ListEnabled   bool
 }
+
 type Manifest struct {
 	Digest               string
 	ImageSize            int64
@@ -57,36 +58,6 @@ type RepositoryTags struct {
 	Registry  string
 	ImageName string
 	Tags      []Tag
-}
-
-// Implementing the sort functions
-type manifestByDate []Manifest
-
-func (s manifestByDate) Len() int {
-	return len(s)
-}
-
-func (s manifestByDate) Swap(i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
-
-func (s manifestByDate) Less(i, j int) bool {
-	return s[i].CreatedTime < s[j].CreatedTime
-}
-
-// Implementing the sort functions
-type tagByDate []Tag
-
-func (s tagByDate) Len() int {
-	return len(s)
-}
-
-func (s tagByDate) Swap(i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
-
-func (s tagByDate) Less(i, j int) bool {
-	return s[i].CreatedTime < s[j].CreatedTime
 }
 
 // Dirty util function for checking errors
@@ -202,7 +173,7 @@ func deleteTags(config *Config, repo string, tags []Tag, limit int) {
 func processRepo(config *Config, repo string) {
 	tags, err := getRepositoryTags(config, repo)
 	checkError(err)
-	sort.Sort(tagByDate(tags.Tags))
+	sort.Slice(tags.Tags, func(i, j int) bool { return tags.Tags[i].CreatedTime < tags.Tags[j].CreatedTime })
 
 	if config.verboseLogging {
 		log.Println("---")
@@ -216,7 +187,7 @@ func processRepo(config *Config, repo string) {
 
 	manifests, err := getRepositoryManifests(config, repo)
 	checkError(err)
-	sort.Sort(manifestByDate(manifests.Manifests))
+	sort.Slice(manifests.Manifests, func(i, j int) bool { return manifests.Manifests[i].CreatedTime < manifests.Manifests[j].CreatedTime })
 
 	if config.verboseLogging {
 		log.Println("---")
