@@ -45,7 +45,7 @@ I'd recommend performing a dry run with the `-d` flag before an actual run to en
 
 ### Docker
 
-You can deploy Dusty anywhere you can place a Docker container (kubernetes, perhaps).
+You can deploy Dusty anywhere you can place a Docker container (kubernetes cron job, perhaps).
 
 Instead of passing command-line arguments, you can instead set some environment variables:
 
