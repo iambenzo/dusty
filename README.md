@@ -1,6 +1,6 @@
 # Dusty
 
-I have a small AKS cluster and I'm cheap.
+I have an Azure Container Registry and I'm cheap.
 
 To make sure that I don't flood my container registry with images and end up paying for extra storage, I built this quick and dirty utility.
 
