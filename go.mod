@@ -1,3 +1,3 @@
-module iambenzo.com/dusty
+module github.com/iambenzo/dusty
 
 go 1.15
